@@ -5,7 +5,7 @@ import Product from './Product/Product';
 
 const products = [
     {id: 1, name: 'lego', description: 'building toy', price: '$20'},
-    {id: 1, name: 'barbie', description: 'dolltoy', price: '$15'},
+    {id: 1, name: 'barbie', description: 'doll toy', price: '$15'},
 ]
 
 const Products = () => {
