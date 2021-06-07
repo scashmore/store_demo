@@ -1,5 +1,5 @@
 import React from 'react'
-import {Card, CardMedia, CardContent, CardActinos, Typography, IconButton} from '@material-ui-core'
+import {Card, CardMedia, CardContent, CardActions, Typography, IconButton} from '@material-ui/core'
 import {AddShoppingCart} from '@material-ui/icons'
 import useStyles from './styles'
 
@@ -21,11 +21,11 @@ const Product = ({product}) => {
                     {product.description}
                 </Typography>
             </CardContent>
-            <CardActinos disableSpacing className={classes.cardActions}>
+            <CardActions disableSpacing className={classes.cardActions}>
                 <IconButton area-label="Add to Cart">
                     <AddShoppingCart />
                 </IconButton>
-            </CardActinos>
+            </CardActions>
         </Card>
     )
 }
