@@ -37,7 +37,7 @@ const Checkout = ({cart}) => {
         <div>
             <div className={classes.tollbar}/>
             <main className={classes.layout}>
-                <Paper className="classes.paper">
+                <Paper className="classes.paper" style={{padding: '5%'}}>
                     <Typography variant='h4' align="center">Checkout</Typography>
                     <Stepper activeStep={activeStep} className={classes.stepper}>
                         {steps.map((step) => (
