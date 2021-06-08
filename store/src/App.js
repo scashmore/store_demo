@@ -6,6 +6,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 const App = () => {
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState({});
+    const [order, setOrder] = useStae('')
+
     const fetchProducts = async () => {
         const { data } = await commerce.products.list();
 
@@ -35,6 +37,22 @@ const App = () => {
         const remove = await commerce.cart.empty();
 
         setCart(remove.cart);
+    }
+
+    const refreshCart = async () => {
+        const newCart = await commerce.cart.refresh();
+
+        setCart(newCart);
+    }
+
+    const handleCaptureCheckout = async (checkoutTokenID, newOrder) => {
+        try {
+            const incomingOrder = await commerce.checkout.capture(checkoutTokenID, newOrder);
+
+            setOrder(incomingOrder);
+        } catch (error) {
+
+        }
     }
 
     useEffect(() => {
