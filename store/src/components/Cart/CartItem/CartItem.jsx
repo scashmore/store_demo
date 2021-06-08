@@ -7,7 +7,7 @@ const CartItem = ({item, onUpdateCartQty, onRemoveFromCart}) => {
     return (
         <Card>
             <CardMedia image={item.media.source} alt={item.name} className={classes.media}/>
-            <CardContent classname={classes.cardContent}>
+            <CardContent className={classes.cardContent}>
                 <Typography variant="h4">{item.name}</Typography>
                 <Typography variant="h5">{item.line_total.fotmatted_with_symbol}</Typography>
             </CardContent>

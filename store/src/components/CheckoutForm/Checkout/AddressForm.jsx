@@ -17,7 +17,7 @@ const AddressForm = ({ checkoutToken, next }) => {
     const countries = Object.entries(shippingCountries).map(([code, name]) => ({ id: code, label: name }));
     const subdivisions = Object.entries(shippingSubdivisions).map(([code, name]) => ({ id: code, label: name }));
     const options = shippingOptions.map((sO) => ({ id: sO.id, label: `${sO.description} - (${sO.price.formatted_with_symbol})` }));
-    console.log(shippingOptions);
+    
     const fetchShippingCountries = async (checkoutTokenId) => {
         const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
 
@@ -53,7 +53,7 @@ const AddressForm = ({ checkoutToken, next }) => {
 
     return (
         <>
-            <Typography variant='h6' gutterbottom>Shipping Address</Typography>
+            <Typography variant='h6' gutterBottom>Shipping Address</Typography>
             <FormProvider {...methods}>
                 <form onSubmit={methods.handleSubmit((data) => next({...data, shippingCountry, shippingSubdivision, shippingOption}))}>
                     <Grid container spacing={3}>

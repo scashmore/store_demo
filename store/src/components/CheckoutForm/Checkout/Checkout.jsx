@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react';
+import {Link, useHistory} from 'react-router-dom';
 import { Paper, Stepper, Step, StepLabel, Typography, CircularProgress, Divider, Button} from '@material-ui/core'
 import {commerce} from '../../../lib/commerce'
 
@@ -8,7 +9,7 @@ import PaymentForm from './PaymentForm';
 
 const steps = ['Shipping address', 'Payment details']
 
-const Checkout = ({cart}) => {
+const Checkout = ({cart, order, onCaptureCheckout, error}) => {
     const [activeStep, setActiveStep] = useState(0);
     const [checkoutToken, setCheckoutToken] = useState(null)
     const [shippingData, setShippingData] = useState('');
@@ -20,7 +21,7 @@ const Checkout = ({cart}) => {
                 const token = await commerce.checkout.generateToken(cart.id, {type: 'cart'})
                 setCheckoutToken(token);
             } catch (error) {
-
+                //history.pushState('/')
             }
         }
         generateToken();
@@ -40,7 +41,7 @@ const Checkout = ({cart}) => {
 
     const Form = () => activeStep === 0
         ? <AddressForm checkoutToken={checkoutToken} next={next}/>
-        : <PaymentForm  shippingData={shippingData} checkoutToken={checkoutToken} backStep={backStep}/>
+        : <PaymentForm  shippingData={shippingData} checkoutToken={checkoutToken} backStep={backStep} nextStep={nextStep} onCaptureCheckout={onCaptureCheckout}/>
 
     return (
         <div>
