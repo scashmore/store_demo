@@ -14,37 +14,68 @@ const AddressForm = ({ checkoutToken, next }) => {
     const [shippingOption, setShippingOption] = useState('');
     const methods = useForm();
 
-    const fetchShippingCountries = async (checkoutTokenId) => {
-        const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+    // const fetchShippingCountries = async (checkoutTokenId) => {
+    //     const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+        
+    //     setShippingCountries(countries);
+    //     setShippingCountry(Object.keys(countries)[2]);
+    // };
 
-        setShippingCountries(countries);
-        setShippingCountry(Object.keys(countries)[2]);
-    };
+    // const fetchSubdivisions = async (countryCode) => {
+    //     const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
+        
+    //     setShippingSubdivisions(subdivisions);
+    //     setShippingSubdivision(Object.keys(subdivisions)[0]);
+        
+    // };
 
-    const fetchSubdivisions = async (countryCode) => {
-        const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
-
-        setShippingSubdivisions(subdivisions);
-        setShippingSubdivision(Object.keys(subdivisions)[0]);
-    };
-
-    const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
-        const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
-
-        setShippingOptions(options);
-        setShippingOption(options[0].id);
-    };
+    // const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
+    //     const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
+        
+    //     setShippingOptions(options);
+    //     setShippingOption(options[0].id);
+        
+    // };
 
     useEffect(() => {
+        let ignore = false;
+        const fetchShippingCountries = async (checkoutTokenId) => {
+            const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);
+            if(!ignore){
+            setShippingCountries(countries);
+            setShippingCountry(Object.keys(countries)[2]);
+            }
+        };
         fetchShippingCountries(checkoutToken.id);
+        return () => {ignore = true};
     }, []);
 
     useEffect(() => {
+        let ignore = false;
+        const fetchSubdivisions = async (countryCode) => {
+            const { subdivisions } = await commerce.services.localeListSubdivisions(countryCode);
+            if (!ignore){
+            setShippingSubdivisions(subdivisions);
+            setShippingSubdivision(Object.keys(subdivisions)[0]);
+            }
+            
+        };
         if (shippingCountry) fetchSubdivisions(shippingCountry);
+        return () => {ignore = true};
     }, [shippingCountry]);
 
     useEffect(() => {
+        let ignore = false;
+        const fetchShippingOptions = async (checkoutTokenId, country, stateProvince = null) => {
+            const options = await commerce.checkout.getShippingOptions(checkoutTokenId, { country, region: stateProvince });
+            if (!ignore) {
+            setShippingOptions(options);
+            setShippingOption(options[0].id);
+            }
+            
+        };
         if (shippingSubdivision) fetchShippingOptions(checkoutToken.id, shippingCountry, shippingSubdivision);
+        return () => {ignore = true};
     }, [shippingSubdivision]);
 
     return (

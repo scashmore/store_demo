@@ -14,7 +14,7 @@ const PaymentForm = ({ checkoutToken, shippingData, backStep, nextStep, onCaptur
         if (!stripe || !elements) return;
 
         const cardElement = elements.getElement(CardElement);
-        const { error, paymentMethod } = await stripe.cretePaymentMethod({ type: 'card', card: cardElement });
+        const { error, paymentMethod } = await stripe.createPaymentMethod({ type: 'card', card: cardElement });
 
         if (error) {
             console.log(error);
@@ -51,7 +51,7 @@ const PaymentForm = ({ checkoutToken, shippingData, backStep, nextStep, onCaptur
                             <br />
                             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                                 <Button variant="outlined" onClick={backStep}>Back</Button>
-                                <Button tupe="submit" variant="contained" disabled={!stripe} color='primary'>
+                                <Button type="submit" variant="contained" disabled={!stripe} color='primary'>
                                     Pay {checkoutToken.live.subtotal.formatted_with_symbol}
                                 </Button>
                             </div>
