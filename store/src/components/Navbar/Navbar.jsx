@@ -19,6 +19,12 @@ const Navbar = ({totalItems}) => {
                     Shop Demo
                 </Typography>
                 <div className={classes.grow} />
+                <Typography component={Link} to="/" variant='h6' color="inherit" style={{marginRight: '2%'}}>
+                        Store
+                    </Typography>
+                    <Typography component={Link} to="/aboutus" variant='h6' color="inherit" style={{marginRight: '2%'}}>
+                        About Us
+                    </Typography>
                 {location.pathname === '/' && (
                 <div className={classes.button}>
                     <IconButton component={Link} to="/cart" aria-label="Show cart items" color="inherit">
