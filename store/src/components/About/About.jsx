@@ -5,12 +5,13 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
+import {Typography, Card, CardMedia, CardContent} from '@material-ui/core';
 import Box from '@material-ui/core/Box';
 import { Autorenew } from '@material-ui/icons';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  const classes = useStyles();
 
   return (
     <div
@@ -45,12 +46,21 @@ function a11yProps(index) {
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: theme.palette.background.paper,
-    width: 500,
+    width: '100%',
+    alignContent: 'center'
   },
   appbar: {
     alignItems: 'center',
     top: 'auto',
   },
+  tabs: {
+      width: '100%',
+      marginTop: '10%',
+      
+  },
+  stores: {
+      width: '100%'
+  }
 }));
 
 export default function About() {
@@ -87,14 +97,35 @@ export default function About() {
         index={value}
         onChangeIndex={handleChangeIndex}
       >
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          Item One
+        <TabPanel value={value} index={0} dir={theme.direction} className={classes.tabs}>
+          <Card className={classes.stores}>
+              <CardMedia className={classes.media} image=""/>
+              <CardContent>
+                  <Typography variant='h5' gutterBottom>
+                        The original OP Taylors, locatated in beautiful, downtown Brevard!
+                  </Typography>
+              </CardContent>
+          </Card>
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
-          Item Two
+        <TabPanel value={value} index={1} dir={theme.direction} className={classes.tabs}>
+          <Card className={classes.stores}>
+              <CardMedia className={classes.media} image=""/>
+              <CardContent>
+                  <Typography variant='h5' gutterBottom>
+                        Locatated in Biltmore Park!
+                  </Typography>
+              </CardContent>
+          </Card>
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          Item Three
+        <TabPanel value={value} index={2} dir={theme.direction} className={classes.tabs}>
+          <Card className={classes.stores}>
+              <CardMedia className={classes.media} image=""/>
+              <CardContent>
+                  <Typography variant='h5' gutterBottom>
+                        Locatated in beautiful, downtown Greenville!
+                  </Typography>
+              </CardContent>
+          </Card>
         </TabPanel>
       </SwipeableViews>
     </div>
